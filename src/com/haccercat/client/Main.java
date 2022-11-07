@@ -22,7 +22,7 @@ public class Main {
         Connection connection = new Connection(args[0], port, shouldDump);
         connection.start();
         try {
-            Thread.currentThread().join();
+            Thread.currentThread().join(); // run forever.
         } catch(InterruptedException e) {
             System.out.printf("[fatal-error] failed to make main thread run forever: %s\n", e.getMessage());
             System.exit(0);
