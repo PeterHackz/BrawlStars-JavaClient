@@ -1,5 +1,5 @@
 # BrawlStars-JavaClient
-implementation of brawl stars client in java
+implementation of [brawl stars client](https://github.com/HaccerCat/BrawlStars-Client) in java
 
 ## BrawlStars-Client
 client for brawl stars v46 prod server
