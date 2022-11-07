@@ -34,11 +34,13 @@ class Nonce {
         return nonce;
     }
     public void increment() {
-        int value = (((int)nonce[0] & 0xFF) | ((int)nonce[1] & 0xFF) << 8 | ((int)nonce[2] & 0xFF) << 16 | ((int)nonce[3] & 0xFF) << 24) + 2;
-        nonce[0] = (byte)(value & 0xFF);
-        nonce[1] = (byte)((value >> 8) & 0xFF);
-        nonce[2] = (byte)((value >> 16) & 0xFF);
-        nonce[3] = (byte)((value >> 24) & 0xFF);
+        int c = 1;
+        for (int idx = 0; idx < 47; idx++) {
+            if (idx == 24) c = 1;
+            c += (int)nonce[idx % 24] & 0xFF;
+            nonce[idx % 24] = (byte)c;
+            c >>= 8;
+        }
     }
 }
 
@@ -52,15 +54,15 @@ public class PepperCrypto {
     public byte[] client_public_key;
     public byte[] server_public_key;
 
-    private TweetNacl.Box cbox;
-    private TweetNacl.Box sbox;
+    private TweetNacl.Box box;
     
     private byte[] session_key;
 
     public PepperCrypto() {
         server_public_key = hexStringToByteArray("84BCCFFAEAFAC86CEFD3F16E26586ADBF1ED402481FAF3E8B0AC1FE4739B2C28");
-        client_nonce = new Nonce(hexStringToByteArray("298DDBDC1CA58F41017C4212EFC726F75763AD2A7AE0D748"));
-        client_secret_key = hexStringToByteArray("EECE0B5CBC86B4D90717E2621224E5289B295265FDFB414366665CD28A9097ED");
+        client_nonce = new Nonce();
+        client_secret_key = new byte[32];
+        TweetNacl.randombytes(client_secret_key, 32);
         client_public_key = new byte[32];
         TweetNacl.crypto_scalarmult_base(client_public_key, client_secret_key);
         key = new byte[32];
@@ -76,7 +78,7 @@ public class PepperCrypto {
             return concat(client_public_key, encrypted);
         } else {
             client_nonce.increment();
-            return sbox.after(payload, client_nonce.bytes());
+            return box.after(payload, client_nonce.bytes());
         }
     }
 
@@ -88,12 +90,12 @@ public class PepperCrypto {
             Nonce nonce = new Nonce(client_nonce.bytes(), client_public_key, server_public_key);
             byte[] decrypted = new TweetNacl.Box(server_public_key, client_secret_key).open(payload, nonce.bytes());
             server_nonce = new Nonce(Arrays.copyOfRange(decrypted, 0, 24));
-            sbox = new TweetNacl.Box(server_public_key, client_public_key); // temp.
-            sbox.sharedKey = Arrays.copyOfRange(decrypted, 24, 56);
+            box = new TweetNacl.Box(server_public_key, client_public_key); // temp.
+            box.sharedKey = Arrays.copyOfRange(decrypted, 24, 56);
             return Arrays.copyOfRange(decrypted, 56, decrypted.length);
         } else {
             server_nonce.increment();
-            return sbox.open_after(payload, server_nonce.bytes());
+            return box.open_after(payload, server_nonce.bytes());
         }
     }
 
