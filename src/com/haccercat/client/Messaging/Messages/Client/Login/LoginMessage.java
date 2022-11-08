@@ -15,8 +15,8 @@ public class LoginMessage extends PiranhaMessage {
 
         bytestream.writeInt(46);
         bytestream.writeInt(1);
-        bytestream.writeInt(190);
-        bytestream.writeString("26d9b4db26f9b827da2ddf162779d6d96c18ee36");
+        bytestream.writeInt(201);
+        bytestream.writeString("6ae6e058604fa57e250294c1660fa1e7cc728994");
 
         bytestream.writeString();
         bytestream.writeDataReference(1, 0);
