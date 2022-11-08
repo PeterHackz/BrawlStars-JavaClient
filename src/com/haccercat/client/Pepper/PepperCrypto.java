@@ -87,6 +87,7 @@ public class PepperCrypto {
             session_key = Arrays.copyOfRange(payload, 4, payload.length);
             return payload;
         } else if (type == 20104 || type == 20103) {
+            if (type == 20103 && server_nonce == null) return payload;
             Nonce nonce = new Nonce(client_nonce.bytes(), client_public_key, server_public_key);
             byte[] decrypted = new TweetNacl.Box(server_public_key, client_secret_key).open(payload, nonce.bytes());
             server_nonce = new Nonce(Arrays.copyOfRange(decrypted, 0, 24));
