@@ -13,8 +13,8 @@ public class ClientHelloMessage extends PiranhaMessage {
         bytestream.writeInt(34); // crypto version
         bytestream.writeInt(46); // major version
         bytestream.writeInt(1); // build version
-        bytestream.writeInt(201); // minor version 
-        bytestream.writeString("6ae6e058604fa57e250294c1660fa1e7cc728994"); // master hash 
+        bytestream.writeInt(209); // minor version 
+        bytestream.writeString("e13eb3b80ac96ef51c3baa7eb25064aadfe00fed"); // master hash 
         bytestream.writeInt(0);
         bytestream.writeInt(0);
     }
