@@ -10,11 +10,11 @@ public class ClientHelloMessage extends PiranhaMessage {
     public void encode() {
         ByteStream bytestream = getByteStream();
         bytestream.writeInt(2); // protocol version
-        bytestream.writeInt(34); // crypto version
-        bytestream.writeInt(46); // major version
+        bytestream.writeInt(35); // crypto version
+        bytestream.writeInt(47); // major version
         bytestream.writeInt(1); // build version
-        bytestream.writeInt(209); // minor version 
-        bytestream.writeString("e13eb3b80ac96ef51c3baa7eb25064aadfe00fed"); // master hash 
+        bytestream.writeInt(211); // minor version 
+        bytestream.writeString("db748fbfc2deb455586fc0ae3a7eea562eb4c0c9"); // master hash 
         bytestream.writeInt(0);
         bytestream.writeInt(0);
     }
