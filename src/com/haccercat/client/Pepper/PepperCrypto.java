@@ -59,7 +59,7 @@ public class PepperCrypto {
     private byte[] session_key;
 
     public PepperCrypto() {
-        server_public_key = hexStringToByteArray("84BCCFFAEAFAC86CEFD3F16E26586ADBF1ED402481FAF3E8B0AC1FE4739B2C28");
+        server_public_key = hexStringToByteArray("8434902B6A7D834C222FBEE06BE5950194B70D1B9F2DF140B4A36460900E032E");
         client_nonce = new Nonce();
         client_secret_key = new byte[32];
         TweetNacl.randombytes(client_secret_key, 32);
