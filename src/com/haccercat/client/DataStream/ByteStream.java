@@ -60,13 +60,6 @@ public class ByteStream {
 			this.writeByte(v1);
 		} else {
 			this.writeByte(v1 | 0x80);
-			v2 >>= 7;
-			v3 = 0;
-			if (v2 > 0) {
-				v3 = 0x80;
-			}
-			this.writeByte((a1 & 0x7F) | v3);
-			a1 >>= 7;
 			while (v2 != 0) {
 				v2 >>= 7;
 				v3 = 0;
