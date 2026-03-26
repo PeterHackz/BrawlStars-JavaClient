@@ -1,5 +1,5 @@
 # BrawlStars-JavaClient
-implementation of [brawl stars client](https://github.com/HaccerCat/BrawlStars-Client) in java
+implementation of [brawl stars client](https://github.com/PeterHackz/BrawlStars-Client) in java
 
 ## BrawlStars-Client
 client for brawl stars v46 prod server
@@ -28,7 +28,7 @@ cd out && java com/haccercat/client/Main game.brawlstarsgame.com 9339 dump
 ```
 
 # credits
-this project was made by [S.B#0056](https://github.com/HaccerCat) and [risporce#6552](https://github.com/risporce)
+this project was made by [S.B#0056](https://github.com/PeterHackz) and [risporce#6552](https://github.com/risporce)
 
 ## give a 🌟 because why not :p
 
